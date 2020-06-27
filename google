@@ -1,17 +1,13 @@
 #!/bin/bash
 
 search_string="https://www.google.com/search?q="
-first_iteration=true
 
 for var in "$@"
 do
-    if [ "$first_iteration" = true ]
-    then
-        search_string="${search_string}${var}"
-        first_iteration=false
-    else
-        search_string="${search_string}+${var}"
-    fi
+    search_string="${search_string}${var}+"
 done
+
+# Remove unnecessary plus sign at the end
+search_string=${search_string::-1}
 
 firefox --new-tab $search_string
